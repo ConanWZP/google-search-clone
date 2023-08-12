@@ -19,7 +19,7 @@ const Navbar:FC<NavbarProps> = ({darkMode, setDarkMode}) => {
             </div>
 
             <Search />
-            {/*Delete wrapper and context before*/}
+
             <div className={`flex items-center gap-3 text-[22px]`}>
                 <Link to={'/search'}>search</Link>
                 <Link to={'/news'}>news</Link>

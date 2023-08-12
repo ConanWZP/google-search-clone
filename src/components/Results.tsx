@@ -6,13 +6,22 @@ import Loader from "./Loader";
 const Results = () => {
 
     const location = useLocation()
-
+    console.log(location.pathname)
     const {searchResults, setSearchValue, searchValue, isLoading, getData} = useResultContext()
    // console.log(searchValue)
 
     useEffect(() => {
-     //   getData('mcdonalds')
-    }, [])
+     //   getData('mcdonalds', 'search')
+
+        if (location.pathname === '/search') {
+           // getData('mcdonalds', 'search')
+        } else if (location.pathname === '/images') {
+           // getData('mcdonalds', 'images')
+        } else if (location.pathname === '/news') {
+          //  getData('mcdonalds', 'news')
+        }
+
+    }, [location.pathname])
 
     if (isLoading) {
         return <Loader />
@@ -53,7 +62,16 @@ const Results = () => {
             )
         case '/images':
             return (
-                <div>images</div>
+                <div className={`flex flex-wrap items-center justify-center`}>
+                    {
+                        searchResults.map(({id, title, thumbnail_url, url}) => (
+                            <div key={id} className={`p-5`}>
+                                <img src={thumbnail_url} alt={title} />
+                                <p className={`sm:w-36 w-36 break-words text-sm mt-2`}>{title}</p>
+                            </div>
+                        ))
+                    }
+                </div>
             )
         case '/videos':
             return (

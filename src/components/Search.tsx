@@ -6,9 +6,12 @@ const Search = () => {
     const {getData} = useResultContext()
 
     return (
-        <div className={`flex gap-10 items-center ml-[50%] `}>
+        <div className={`flex gap-10 items-center mx-auto `}>
             <span>Search</span>
-            <button className={`bg-blue-500 px-3 py-0.5 text-[28px] text-white rounded-[10px]`} onClick={() => getData('cat')}>Find</button>
+            <button className={`bg-blue-500 px-3 py-0.5 text-[28px] text-white rounded-[10px]`}
+                    onClick={() => getData('cat', 'search')}>
+                Find
+            </button>
         </div>
     );
 };

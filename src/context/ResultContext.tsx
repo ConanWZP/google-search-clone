@@ -11,7 +11,7 @@ export type ResultContextType = {
     searchValue: string,
     setSearchValue: (e: string) => void,
     isLoading: boolean,
-    getData: (e: string) => void
+    getData: (e: string, type: string) => void
 }
 
 const ResultContext = createContext<ResultContextType>({
@@ -19,7 +19,7 @@ const ResultContext = createContext<ResultContextType>({
     searchValue: '',
     setSearchValue: () => {},
     isLoading: false,
-    getData: (e: string) => {}
+    getData: (e: string, type: string) => {}
 })
 
 
@@ -28,7 +28,7 @@ export const ResultContextProvider:FC<ResultContextProviderProps> = ({children})
     const [searchValue, setSearchValue] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
-    const getData = async (text: string) => {
+    const getData = async (text: string, searchType: string) => {
         setIsLoading(true)
 
         /*const options = {
@@ -58,9 +58,47 @@ export const ResultContextProvider:FC<ResultContextProviderProps> = ({children})
                 'X-RapidAPI-Host': 'google-search-results-scraper.p.rapidapi.com'
             }
         };*/
+        let options = {}
+        if (searchType === 'search') {
+           options = {
+               method: 'GET',
+               url: 'https://real-time-web-search.p.rapidapi.com/search',
+               params: {
+                   q: text,
+                   limit: '10'
+               },
+               headers: {
+                   'X-RapidAPI-Key': 'b68f592795mshb2d7ff3dc7c6836p1d9ab8jsn968080316a49',
+                   'X-RapidAPI-Host': 'real-time-web-search.p.rapidapi.com'
+               }
+           }
+        } else if (searchType === 'images') {
+            options = {
+                method: 'GET',
+                url: 'https://real-time-image-search.p.rapidapi.com/search',
+                params: {
+                    query: text,
 
-
-        const options = {
+                },
+                headers: {
+                    'X-RapidAPI-Key': 'b68f592795mshb2d7ff3dc7c6836p1d9ab8jsn968080316a49',
+                    'X-RapidAPI-Host': 'real-time-image-search.p.rapidapi.com'
+                }
+            }
+        } else {
+            options = {
+                method: 'GET',
+                url: 'https://real-time-news-data.p.rapidapi.com/search',
+                params: {
+                    query: text,
+                },
+                headers: {
+                    'X-RapidAPI-Key': 'b68f592795mshb2d7ff3dc7c6836p1d9ab8jsn968080316a49',
+                    'X-RapidAPI-Host': 'real-time-news-data.p.rapidapi.com'
+                }
+            }
+        }
+       /* const options = {
             method: 'GET',
             url: 'https://real-time-web-search.p.rapidapi.com/search',
             params: {
@@ -71,7 +109,7 @@ export const ResultContextProvider:FC<ResultContextProviderProps> = ({children})
                 'X-RapidAPI-Key': 'b68f592795mshb2d7ff3dc7c6836p1d9ab8jsn968080316a49',
                 'X-RapidAPI-Host': 'real-time-web-search.p.rapidapi.com'
             }
-        };
+        }*/
 
         // const options = {
         //     method: 'GET',

@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './App.scss'
 import Navbar from "./components/Navbar";
 
 import Footer from "./components/Footer";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Results from "./components/Results";
-import axios from 'axios';
+
 
 const App = () => {
 

@@ -19,7 +19,7 @@ const App = () => {
                 <BrowserRouter>
                     <Navbar setDarkMode={setDarkMode} darkMode={darkMode}/>
                    {/* <button onClick={() => getData()}>Click</button>*/}
-                    <div className={`flex-auto `}>
+                    <div className={`flex-auto`}>
                         <Routes>
                             <Route path={'/'} element={<Navigate to={'/search'}/>}/>
                             {

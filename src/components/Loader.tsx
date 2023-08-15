@@ -3,12 +3,16 @@ import {InfinitySpin} from 'react-loader-spinner'
 
 const Loader = () => {
     return (
-        <div className={`flex justify-center items-center`}>
-            <InfinitySpin
-                width='200'
-                color="#4fa94d"
-            />
-        </div>
+
+            <div className={`fixed left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%]`}>
+                <InfinitySpin
+                    width='200'
+
+                    color="#4fa94d"
+                />
+            </div>
+
+
     );
 };
 

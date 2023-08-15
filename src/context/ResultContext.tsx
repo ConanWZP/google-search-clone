@@ -24,11 +24,12 @@ const ResultContext = createContext<ResultContextType>({
 
 
 export const ResultContextProvider:FC<ResultContextProviderProps> = ({children}) => {
-    const [searchResults, setSearchResults] = useState([])
+    const [searchResults, setSearchResults] = useState<any[]>([])
     const [searchValue, setSearchValue] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
     const getData = async (text: string, searchType: string) => {
+        setSearchResults([])
         setIsLoading(true)
 
         /*const options = {
@@ -68,7 +69,7 @@ export const ResultContextProvider:FC<ResultContextProviderProps> = ({children})
                    limit: '10'
                },
                headers: {
-                   'X-RapidAPI-Key': 'b68f592795mshb2d7ff3dc7c6836p1d9ab8jsn968080316a49',
+                   'X-RapidAPI-Key': `${process.env.REACT_APP_SEARCH_API_KEY}`,
                    'X-RapidAPI-Host': 'real-time-web-search.p.rapidapi.com'
                }
            }
@@ -81,11 +82,11 @@ export const ResultContextProvider:FC<ResultContextProviderProps> = ({children})
 
                 },
                 headers: {
-                    'X-RapidAPI-Key': 'b68f592795mshb2d7ff3dc7c6836p1d9ab8jsn968080316a49',
+                    'X-RapidAPI-Key': `${process.env.REACT_APP_IMAGE_API_KEY}`,
                     'X-RapidAPI-Host': 'real-time-image-search.p.rapidapi.com'
                 }
             }
-        } else {
+        } else if (searchType === 'news') {
             options = {
                 method: 'GET',
                 url: 'https://real-time-news-data.p.rapidapi.com/search',
@@ -93,10 +94,22 @@ export const ResultContextProvider:FC<ResultContextProviderProps> = ({children})
                     query: text,
                 },
                 headers: {
-                    'X-RapidAPI-Key': 'b68f592795mshb2d7ff3dc7c6836p1d9ab8jsn968080316a49',
+                    'X-RapidAPI-Key': `${process.env.REACT_APP_NEWS_API_KEY}`,
                     'X-RapidAPI-Host': 'real-time-news-data.p.rapidapi.com'
                 }
             }
+        } else {
+            options = {
+                method: 'GET',
+                url: 'https://youtube138.p.rapidapi.com/search/',
+                params: {
+                    q: text,
+                },
+                headers: {
+                    'X-RapidAPI-Key': `${process.env.REACT_APP_VIDEO_API_KEY}`,
+                    'X-RapidAPI-Host': 'youtube138.p.rapidapi.com'
+                }
+            };
         }
        /* const options = {
             method: 'GET',
@@ -129,7 +142,12 @@ export const ResultContextProvider:FC<ResultContextProviderProps> = ({children})
         try {
             const response = await axios.request(options)
             console.log(response.data)
-            setSearchResults(response.data.data)
+            if (searchType === 'videos') {
+                setSearchResults(response.data.contents)
+            } else {
+                setSearchResults(response.data.data)
+            }
+           // setSearchResults(response.data.data)
            // const response = await axiosAgent(`search?access_key=b52a889ca28cb147d87e7dd3fa68d998&query=${text}`)
            // const response = await fetch(`http://api.serpstack.com/search?access_key=b52a889ca28cb147d87e7dd3fa68d998&query=${text}`)
            // const data = await response.json()

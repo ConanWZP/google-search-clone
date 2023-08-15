@@ -1,0 +1,57 @@
+
+.blockScroll {
+  overflow: hidden;
+
+}
+
+.darkBackground {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  //transform: translateX(25%);
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.35);
+  transition: all 0.2s ease-out;
+}
+
+
+.buttonLeft {
+  position: absolute;
+  left: 16%;
+  top: 47%;
+  border: 2px solid black;
+
+  @media (max-width: 768px) {
+    left: 6%;
+  }
+}
+
+.buttonRight {
+  position: absolute;
+  right: 16%;
+  top: 47%;
+  border: 2px solid black;
+  @media (max-width: 768px) {
+    right: 6%;
+  }
+}
+
+.buttonClose {
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 2px solid black;
+}
+
+.imageStyles {
+  object-fit: contain;
+  background-color: #413b3b;
+}
